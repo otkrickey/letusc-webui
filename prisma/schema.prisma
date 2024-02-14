@@ -1,0 +1,64 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("MONGO_URI")
+}
+
+model User {
+  id String @id @default(auto()) @map("_id") @db.ObjectId
+
+  name          String?
+  discriminator String?
+  discord_id    String? @unique
+  discord_email String? @unique
+  image         String?
+
+  letusc_id    String? @unique
+  letusc_email String? @unique
+  password     String?
+
+  discord_sub String? @unique
+  letusc_sub  String? @unique
+
+  access_token String? @unique
+
+  // accounts Account[]
+  // sessions Session[]
+}
+
+// model Account {
+//   id                String  @id @default(auto()) @map("_id") @db.ObjectId
+//   userId            String  @map("userId") @db.ObjectId
+//   type              String  @map("type")
+//   provider          String  @map("provider")
+//   providerAccountId String  @map("providerAccountId")
+//   refresh_token     String? @unique @map("refresh_token")
+//   access_token      String? @unique @map("access_token")
+//   expires_at        Int?    @map("expires_at")
+//   token_type        String? @map("tokenType")
+//   scope             String? @map("scope")
+//   id_token          String? @unique @map("idToken")
+//   session_state     String? @map("sessionState")
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+//   @@unique([provider, providerAccountId])
+// }
+
+// model Session {
+//   id           String   @id @default(auto()) @map("_id") @db.ObjectId
+//   userId       String   @map("userId") @db.ObjectId
+//   expires      DateTime @map("expires")
+//   sessionToken String   @map("sessionToken")
+//   accessToken  String?  @map("accessToken")
+//   createdAt    DateTime @map("createdAt")
+//   updatedAt    DateTime @map("updatedAt")
+
+//   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+// }
