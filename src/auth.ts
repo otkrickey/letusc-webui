@@ -1,10 +1,9 @@
-// import { Adapter } from "@auth/core/adapters";
 import NextAuth from "next-auth";
 
 import authConfig from "@/auth.config";
 import { getUserByDiscordSub, getUserByLetuscSub } from "@/data/user";
-// import { CustomPrismaAdapter } from "@/lib/adapter";
 import { db } from "@/lib/db";
+import { ORIGIN_URL } from "@/utils/env";
 
 export const {
     handlers: { GET, POST },
@@ -13,7 +12,7 @@ export const {
     signOut,
 } = NextAuth({
     pages: {
-        signIn: '/auth/login',
+        signIn: '/api/auth/signin',
     },
     callbacks: {
         async session({ session, token }) {
@@ -104,13 +103,18 @@ export const {
 
             return true;
         },
-        async redirect({ url, baseUrl }) {
-            // Allows relative callback URLs
-            if (url.startsWith("/")) return `${baseUrl}${url}`;
-            // Allows callback URLs on the same origin
-            else if (new URL(url).origin === baseUrl) return url;
-            return baseUrl;
-        }
+        // async redirect({ url, baseUrl }) {
+        //     const execute = () => {
+        //         // Allows relative callback URLs
+        //         if (url.startsWith("/")) return `${ORIGIN_URL}${url}`;
+        //         // Allows callback URLs on the same origin
+        //         else if (new URL(url).origin === new URL(ORIGIN_URL).origin) return url;
+        //         return ORIGIN_URL;
+        //     };
+        //     const result = execute();
+        //     console.log("redirect", result);
+        //     return result;
+        // }
     },
     // adapter: CustomPrismaAdapter(db) as Adapter,
     ...authConfig,

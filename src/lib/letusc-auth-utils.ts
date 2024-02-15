@@ -1,13 +1,20 @@
 import crypto from 'crypto';
-import { readFileSync } from "fs";
 
 export class LetuscAuthUtils {
     static getPublicKey(): Buffer {
-        return readFileSync('auth/public-key.pem');
+        const publicKeyBase64 = process.env.PUBLIC_KEY_BASE64;
+        if (!publicKeyBase64) {
+            throw new Error("Public key not found in environment variables");
+        }
+        return Buffer.from(publicKeyBase64, 'base64');
     }
 
     static getPrivateKey(): Buffer {
-        return readFileSync('auth/private-key.pem');
+        const privateKeyBase64 = process.env.PRIVATE_KEY_BASE64;
+        if (!privateKeyBase64) {
+            throw new Error("Private key not found in environment variables");
+        }
+        return Buffer.from(privateKeyBase64, 'base64');
     }
 
     static encrypt(data: string): string {

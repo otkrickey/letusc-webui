@@ -8,9 +8,10 @@ import { getUserByDiscordId } from "./data/user";
 import { LetuscAuthUtils } from "./lib/letusc-auth-utils";
 
 export default {
-    debug: true,
+    // debug: true,
     secret: process.env.NEXTAUTH_SECRET,
     session: { strategy: "jwt" },
+    trustHost: true,
     providers: [
         Discord({
             clientId: DISCORD_CLIENT_ID,

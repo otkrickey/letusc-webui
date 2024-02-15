@@ -11,3 +11,4 @@ export const MONGO_USER = process.env.MONGO_USER ?? dotenv_error('MONGO_USER');
 export const MONGO_PASS = process.env.MONGO_PASS ?? dotenv_error('MONGO_PASS');
 export const MONGODB_URI = `mongodb+srv://${MONGO_USER}:${MONGO_PASS}@${MONGO_HOST}`;
 export const NEXTAUTH_SECRET = process.env.NEXTAUTH_SECRET ?? dotenv_error('NEXTAUTH_SECRET');
+export const ORIGIN_URL = process.env.ORIGIN_URL ?? dotenv_error('ORIGIN_URL');
